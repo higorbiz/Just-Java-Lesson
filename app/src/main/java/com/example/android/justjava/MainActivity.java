@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     /**
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void increment(View view) {
         quantity = quantity + 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
@@ -49,23 +50,41 @@ public class MainActivity extends ActionBarActivity {
      */
     public void decrement(View view) {
         quantity = quantity - 1;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = quantity * 5;
-        String priceMessage = "Total: $" + price;
-        priceMessage = priceMessage + "\nThank you!";
-        displayMessage(priceMessage);
+        int priceCup = calculatePrice();
+        displayMessage(createOrderSummary(priceCup));
+
+    }
+
+    public String createOrderSummary(int price) {
+
+        String priceMessage = "Name: Higor Biz" +
+                              "\nQuantity: " + quantity +
+                              "\nTotal: $" + price +
+                              "\nThank you!";
+        return priceMessage;
+    }
+
+    /**
+     * Calculates the price of the order.
+     *
+     * @param quantity is the number of cups of coffee ordered
+     */
+    private int calculatePrice() {
+        return  quantity * 5;
+
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(
                 R.id.quantity_text_view);
         quantityTextView.setText("" + number);
